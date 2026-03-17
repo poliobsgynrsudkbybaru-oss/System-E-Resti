@@ -63,6 +63,46 @@
         @media (max-width: 768px) { .stats-grid { grid-template-columns: 1fr; } .form-row { grid-template-columns: 1fr; } .checkbox-group { grid-template-columns: 1fr; } table { font-size: 11px; } th, td { padding: 8px; } }
     </style>
 </head>
+<script>
+function switchTab(tabName) {
+    // Hide all tab contents
+    var contents = document.querySelectorAll('.tab-content');
+    contents.forEach(function(content) {
+        content.classList.remove('active');
+    });
+    
+    // Remove active from all tabs
+    var tabs = document.querySelectorAll('.tab');
+    tabs.forEach(function(tab) {
+        tab.classList.remove('active');
+    });
+    
+    // Show selected tab content
+    document.getElementById('tab-' + tabName).classList.add('active');
+    
+    // Activate selected tab button
+    event.target.classList.add('active');
+}
+
+// Hitung skor sederhana (contoh)
+function hitungSkor() {
+    let skor = 2; // Skor awal
+    // Tambah logika checkbox: document.getElementById('fr1').checked ? skor +=4 : 0
+    console.log('Skor sementara:', skor);
+}
+
+// Init tab pertama
+document.addEventListener('DOMContentLoaded', function() {
+    switchTab('input');
+});
+
+// Touch support mobile
+document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('touchstart', function(e) {
+        switchTab(this.getAttribute('onclick').match(/'([^']+)'/)[1]);
+    });
+});
+</script>
 <body>
     <div class="container">
         <div class="header">
