@@ -283,6 +283,36 @@
                         </tr>
                     </tbody>
                 </table>
+                <!-- TAMBAH INI SETELAH TOMBOL EXPORT EXCEL -->
+<div style="margin: 15px 0;">
+<button class="btn btn-primary" onclick="backupData()">💾 Backup Data JSON</button>
+<button class="btn btn-success" onclick="document.getElementById('restoreInput').click()">📱 Ambil Data</button>
+<input type="file" id="restoreInput" style="display:none" accept=".json" onchange="restoreData(event)">
+</div>
+
+<script>
+function backupData() {
+  const data = loadData();
+  const blob = new Blob([JSON.stringify(data)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'KSPR-Data.json';
+  a.click();
+  alert('Kirim file ini via WA ke HP!');
+}
+
+function restoreData(e) {
+  const file = e.target.files[0];
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    const data = JSON.parse(event.target.result);
+    localStorage.setItem('tracking_kspr_rsud', JSON.stringify(data));
+    loadAllData(); updateDashboard();
+    alert('Data berhasil dimuat!');
+  };
+  reader.readAsText(file);
+}
+</script>
             </div>
         </div>
     </div>
